@@ -1,19 +1,19 @@
-use crate::sudoku::{
-    Sudoku,
-    Solver
-};
+use crate::solver::Solver;
+use crate::sudoku::Sudoku;
 
 const SIZE: usize = 3;
 
 pub type Neighbours = [[usize; 20]; 81];
 
 pub struct Backtracking {
-    neighbours: Neighbours
+    neighbours: Neighbours,
 }
 
 impl Backtracking {
     pub fn new() -> Self {
-        Backtracking { neighbours: Self::init_neighbours() }
+        Backtracking {
+            neighbours: Self::init_neighbours(),
+        }
     }
 
     fn init_neighbours() -> Neighbours {
@@ -49,7 +49,6 @@ impl Backtracking {
         pos
     }
 
-
     fn solve_rec(&self, puzzle: &mut Sudoku, index: usize) -> bool {
         if index == 81 {
             return true;
@@ -58,7 +57,10 @@ impl Backtracking {
         }
 
         for v in 1..=9 {
-            if self.neighbours[index].iter().any(|&ni| puzzle.state[ni] == v) {
+            if self.neighbours[index]
+                .iter()
+                .any(|&ni| puzzle.state[ni] == v)
+            {
                 continue;
             }
 
@@ -74,7 +76,6 @@ impl Backtracking {
 }
 
 impl Solver for Backtracking {
-
     fn solve(&self, puzzle: &mut Sudoku) -> bool {
         self.solve_rec(puzzle, 0)
     }

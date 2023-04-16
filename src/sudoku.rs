@@ -4,11 +4,7 @@ const SIZE: usize = 3;
 
 #[derive(Clone)]
 pub struct Sudoku {
-    pub state: [u8; 81]
-}
-
-pub trait Solver {
-    fn solve(&self, sudoku: &mut Sudoku) -> bool;
+    pub state: [u8; 81],
 }
 
 impl Sudoku {
