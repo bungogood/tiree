@@ -3,6 +3,8 @@ use crate::sudoku::Sudoku;
 
 const SIZE: usize = 3;
 
+// https://en.wikipedia.org/wiki/Backtracking
+
 pub struct Backtracking {
     neighbours: Neighbours,
 }
@@ -14,11 +16,11 @@ impl Backtracking {
         }
     }
 
-    fn solve_rec(&self, puzzle: &mut Sudoku, index: usize) -> bool {
+    fn backtrack(&self, puzzle: &mut Sudoku, index: usize) -> bool {
         if index == SIZE.pow(4) {
             return true;
         } else if puzzle.state[index] != 0 {
-            return self.solve_rec(puzzle, index + 1);
+            return self.backtrack(puzzle, index + 1);
         }
 
         for v in 1..=SIZE.pow(2) {
@@ -30,7 +32,7 @@ impl Backtracking {
             }
 
             puzzle.state[index] = v as u8;
-            if self.solve_rec(puzzle, index + 1) {
+            if self.backtrack(puzzle, index + 1) {
                 return true;
             }
         }
@@ -42,6 +44,6 @@ impl Backtracking {
 
 impl Solver for Backtracking {
     fn solve(&self, puzzle: &mut Sudoku) -> bool {
-        self.solve_rec(puzzle, 0)
+        self.backtrack(puzzle, 0)
     }
 }

@@ -1,9 +1,9 @@
 mod backtracking;
 
-use std::ops::Index;
 pub use backtracking::Backtracking;
 
 use crate::sudoku::Sudoku;
+use std::ops::Index;
 
 const SIZE: usize = 3;
 
