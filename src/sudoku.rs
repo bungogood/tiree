@@ -4,76 +4,19 @@ const SIZE: usize = 3;
 
 #[derive(Clone)]
 pub struct Sudoku {
-    state: [u8; 81],
+    pub state: [u8; 81]
 }
 
-pub type Neighbours = [[usize; 20]; 81];
-
-pub fn gen_neighbours() -> Neighbours {
-    let mut pos: Neighbours = [[0; 20]; 81];
-    (0..81).for_each(|index| {
-        pos[index] = get_neighbours(index);
-    });
-    pos
-}
-
-pub fn get_neighbours(index: usize) -> [usize; 20] {
-    let (r, c) = Sudoku::itorc(index);
-    let sr = (r / SIZE) * SIZE;
-    let sc = (c / SIZE) * SIZE;
-
-    let mut pos = [0; 20];
-    let mut count = 0;
-
-    let mut check = |ni: usize| {
-        if ni != index && !pos.contains(&ni) {
-            pos[count] = ni;
-            count += 1;
-        }
-    };
-
-    (0..9).for_each(|n| {
-        check(Sudoku::rctoi(r, n));
-        check(Sudoku::rctoi(n, c));
-        let ri = n / SIZE;
-        let ci = n % SIZE;
-        check(Sudoku::rctoi(sr + ri, sc + ci));
-    });
-    pos
+pub trait Solver {
+    fn solve(&self, sudoku: &mut Sudoku) -> bool;
 }
 
 impl Sudoku {
-    fn solve_rec(&mut self, index: usize, neighbours: Neighbours) -> bool {
-        if index == 81 {
-            return true;
-        } else if self.state[index] != 0 {
-            return self.solve_rec(index + 1, neighbours);
-        }
-
-        for v in 1..=9 {
-            if neighbours[index].iter().any(|&ni| self.state[ni] == v) {
-                continue;
-            }
-
-            self.state[index] = v;
-            if self.solve_rec(index + 1, neighbours) {
-                return true;
-            }
-        }
-
-        self.state[index] = 0;
-        return false;
-    }
-
-    pub fn solve(&mut self, neighbours: Neighbours) -> bool {
-        self.solve_rec(0, neighbours)
-    }
-
-    const fn itorc(index: usize) -> (usize, usize) {
+    pub const fn itorc(index: usize) -> (usize, usize) {
         (index / SIZE.pow(2), index % SIZE.pow(2))
     }
 
-    const fn rctoi(row: usize, col: usize) -> usize {
+    pub const fn rctoi(row: usize, col: usize) -> usize {
         row * SIZE.pow(2) + col
     }
 }
