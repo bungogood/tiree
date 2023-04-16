@@ -27,26 +27,24 @@ impl FromStr for Sudoku {
     type Err = String;
 
     fn from_str(raw: &str) -> Result<Self, Self::Err> {
+        let mut state = [0u8; 81];
+
         let s = raw.replace(".", "0");
-        let mut state = [0; 81];
         for (i, c) in s.chars().enumerate() {
-            let digit = c.to_digit(10);
-            match digit {
-                Some(d) if d <= 9 => state[i] = d as u8,
-                Some(_) => return Err(format!("Invalid digit at index {}", i)),
-                None => return Err(format!("Non-digit character at index {}", i)),
+            match c.to_digit(10) {
+                Some(v) => state[i] = v as u8,
+                None => return Err(format!("Invalid character: {}", c)),
             }
         }
+
         Ok(Sudoku { state: state })
     }
 }
 
 fn divisor(left: char, mid: char, right: char) -> String {
     format!(
-        "{}{}{}",
-        left,
-        vec!["─".repeat(SIZE * 2 + 1); SIZE].join(&mid.to_string()),
-        right
+        "{left}{}{right}",
+        vec!["─".repeat(SIZE * 2 + 1); SIZE].join(&mid.to_string())
     )
 }
 
@@ -65,11 +63,10 @@ impl Display for Sudoku {
             if c == 0 {
                 out.push_str("│ ");
             }
-
-            if v != 0 {
-                out.push_str(format!("{} ", v).as_str());
-            } else {
-                out.push_str(". ")
+            
+            match v {
+                0 => out.push_str(". "),
+                _ => out.push_str(format!("{v} ").as_str())
             }
 
             if c % SIZE == SIZE - 1 {
