@@ -1,9 +1,7 @@
-use crate::solver::Solver;
+use crate::solver::{Neighbours, Solver};
 use crate::sudoku::Sudoku;
 
 const SIZE: usize = 3;
-
-pub type Neighbours = [[usize; 20]; 81];
 
 pub struct Backtracking {
     neighbours: Neighbours,
@@ -12,59 +10,26 @@ pub struct Backtracking {
 impl Backtracking {
     pub fn new() -> Self {
         Backtracking {
-            neighbours: Self::init_neighbours(),
+            neighbours: Neighbours::new(),
         }
     }
 
-    fn init_neighbours() -> Neighbours {
-        let mut pos: Neighbours = [[0; 20]; 81];
-        (0..81).for_each(|index| {
-            pos[index] = Self::get_neighbours(index);
-        });
-        pos
-    }
-
-    fn get_neighbours(index: usize) -> [usize; 20] {
-        let (r, c) = Sudoku::itorc(index);
-        let sr = (r / SIZE) * SIZE;
-        let sc = (c / SIZE) * SIZE;
-
-        let mut pos = [0; 20];
-        let mut count = 0;
-
-        let mut check = |ni: usize| {
-            if ni != index && !pos.contains(&ni) {
-                pos[count] = ni;
-                count += 1;
-            }
-        };
-
-        (0..9).for_each(|n| {
-            check(Sudoku::rctoi(r, n));
-            check(Sudoku::rctoi(n, c));
-            let ri = n / SIZE;
-            let ci = n % SIZE;
-            check(Sudoku::rctoi(sr + ri, sc + ci));
-        });
-        pos
-    }
-
     fn solve_rec(&self, puzzle: &mut Sudoku, index: usize) -> bool {
-        if index == 81 {
+        if index == SIZE.pow(4) {
             return true;
         } else if puzzle.state[index] != 0 {
             return self.solve_rec(puzzle, index + 1);
         }
 
-        for v in 1..=9 {
+        for v in 1..=SIZE.pow(2) {
             if self.neighbours[index]
                 .iter()
-                .any(|&ni| puzzle.state[ni] == v)
+                .any(|&ni| puzzle.state[ni] == v as u8)
             {
                 continue;
             }
 
-            puzzle.state[index] = v;
+            puzzle.state[index] = v as u8;
             if self.solve_rec(puzzle, index + 1) {
                 return true;
             }
