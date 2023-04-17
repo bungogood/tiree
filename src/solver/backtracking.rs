@@ -19,25 +19,25 @@ impl Backtracking {
     fn backtrack(&self, puzzle: &mut Sudoku, index: usize) -> bool {
         if index == SIZE.pow(4) {
             return true;
-        } else if puzzle.state[index] != 0 {
+        } else if puzzle[index] != 0 {
             return self.backtrack(puzzle, index + 1);
         }
 
         for v in 1..=SIZE.pow(2) {
             if self.neighbours[index]
                 .iter()
-                .any(|&ni| puzzle.state[ni] == v as u8)
+                .any(|&ni| puzzle[ni] == v as u8)
             {
                 continue;
             }
 
-            puzzle.state[index] = v as u8;
+            puzzle[index] = v as u8;
             if self.backtrack(puzzle, index + 1) {
                 return true;
             }
         }
 
-        puzzle.state[index] = 0;
+        puzzle[index] = 0;
         return false;
     }
 }

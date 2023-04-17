@@ -1,10 +1,10 @@
-use std::{fmt::Display, str::FromStr};
+use std::{fmt::Display, str::FromStr, ops::{IndexMut, Index}};
 
 const SIZE: usize = 3;
 
 #[derive(Clone)]
 pub struct Sudoku {
-    pub state: [u8; 81],
+    state: [u8; 81],
 }
 
 impl Sudoku {
@@ -20,6 +20,19 @@ impl Sudoku {
 impl Default for Sudoku {
     fn default() -> Self {
         Self { state: [0; 81] }
+    }
+}
+
+impl Index<usize> for Sudoku {
+    type Output = u8;
+    fn index(&self, index: usize) -> &Self::Output {
+        &self.state[index]
+    }
+}
+
+impl IndexMut<usize> for Sudoku {
+    fn index_mut(&mut self, index: usize) -> &mut Self::Output {
+        &mut self.state[index]
     }
 }
 
@@ -63,10 +76,10 @@ impl Display for Sudoku {
             if c == 0 {
                 out.push_str("│ ");
             }
-            
+
             match v {
                 0 => out.push_str(". "),
-                _ => out.push_str(format!("{v} ").as_str())
+                _ => out.push_str(format!("{v} ").as_str()),
             }
 
             if c % SIZE == SIZE - 1 {
