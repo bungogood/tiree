@@ -12,11 +12,15 @@ fn run(puzzle: Sudoku, solver: &dyn Solver) {
     let solved = solver.solve(&mut s);
     let time_taken = start.elapsed();
 
+    println!("{puzzle}");
     if solved {
-        println!("Solved:");
-        println!("{}", s);
-        println!("Time Taken: {:.2?}!", time_taken);
+        println!("Solved");
+        println!("{s}");
+    } else {
+        println!("Failed")
     }
+
+    println!("Time Taken: {:.2?}!", time_taken);
 }
 
 fn main() {
