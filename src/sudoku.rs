@@ -1,4 +1,4 @@
-use std::{fmt::Display, str::FromStr, ops::{IndexMut, Index}};
+use std::{fmt::Display, str::FromStr, ops::{Deref, DerefMut}};
 
 const SIZE: usize = 3;
 
@@ -23,16 +23,25 @@ impl Default for Sudoku {
     }
 }
 
-impl Index<usize> for Sudoku {
-    type Output = u8;
-    fn index(&self, index: usize) -> &Self::Output {
-        &self.state[index]
+impl Deref for Sudoku {
+    type Target = [u8; 81];
+
+    fn deref(&self) -> &Self::Target {
+        &self.state
     }
 }
 
-impl IndexMut<usize> for Sudoku {
-    fn index_mut(&mut self, index: usize) -> &mut Self::Output {
-        &mut self.state[index]
+impl DerefMut for Sudoku {
+    fn deref_mut(&mut self) -> &mut Self::Target {
+        &mut self.state
+    }
+}
+
+impl Iterator for Sudoku {
+    type Item = u8;
+
+    fn next(&mut self) -> Option<Self::Item> {
+        todo!()
     }
 }
 
