@@ -8,7 +8,7 @@ const SIZE: usize = 3;
 
 #[derive(Clone)]
 pub struct Sudoku {
-    state: [u8; 81],
+    state: Vec<u8>,
 }
 
 impl Sudoku {
@@ -23,12 +23,12 @@ impl Sudoku {
 
 impl Default for Sudoku {
     fn default() -> Self {
-        Self { state: [0; 81] }
+        Self { state: vec![0; 81] }
     }
 }
 
 impl Deref for Sudoku {
-    type Target = [u8; 81];
+    type Target = Vec<u8>;
 
     fn deref(&self) -> &Self::Target {
         &self.state
@@ -53,7 +53,7 @@ impl FromStr for Sudoku {
     type Err = String;
 
     fn from_str(raw: &str) -> Result<Self, Self::Err> {
-        let mut state = [0u8; 81];
+        let mut state = vec![0; 81];
 
         let s = raw.replace(".", "0");
         for (i, c) in s.chars().enumerate() {
