@@ -6,34 +6,32 @@ use crate::sudoku::Sudoku;
 struct State {
     worklist: Vec<(usize, u8)>,
     // connections: Vec<Vec<usize>>,
-    possible: Vec<Vec<u8>>,
-    placed: usize,
+    possible: Vec<Vec<u8>>
 }
 
 pub struct Quick {
-    neighbours: Neighbours,
+    connections: Vec<Vec<usize>>,
 }
 
 impl Quick {
     pub fn new() -> Self {
+        let n = Neighbours::new();
         Quick {
-            neighbours: Neighbours::new(),
+            connections: n.iter().map(|&e| e.to_vec()).collect(),
         }
     }
 
     fn eliminate(&self, state: &mut State) -> bool {
         while let Some((x, p)) = state.worklist.pop() {
-            for &n in self.neighbours[x].iter() {
+            for &n in self.connections[x].iter() {
                 if state.possible[n].len() == 1 {
                     continue;
                 }
                 state.possible[n].retain(|&v| v != p);
+                // state.connections[n].retain(|&i| i != x);
                 match state.possible[n][..] {
                     [] => return false,
-                    [v] => {
-                        state.placed += 1;
-                        state.worklist.push((n, v))
-                    }
+                    [v] => state.worklist.push((n, v)),
                     _ => {}
                 }
             }
@@ -58,8 +56,7 @@ impl Quick {
                     let mut dup = State {
                         worklist: vec![(shortest, v)], // all filled squared
                         // connections: state.connections.clone(),
-                        possible: state.possible.clone(),
-                        placed: state.placed,
+                        possible: state.possible.clone()
                     };
                     dup.possible[shortest] = vec![v];
                     if let Some(pos) = self.proc(&mut dup) {
@@ -80,7 +77,6 @@ impl Solver for Quick {
             .filter(|(_, &v)| v != 0)
             .map(|(i, v)| (i, *v))
             .collect();
-        let placed = filled.len();
         let possible: Vec<Vec<u8>> = puzzle
             .iter()
             .map(|&v| if v == 0 {
@@ -91,9 +87,8 @@ impl Solver for Quick {
             .collect();
         let mut state = State {
             worklist: filled,
-            // connections: self.neighbours.clone,
-            possible: possible,
-            placed: placed
+            // connections: self.connections.clone(),
+            possible: possible
         };
         match self.proc(&mut state) {
             None => false,
