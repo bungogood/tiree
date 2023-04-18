@@ -32,7 +32,7 @@ impl Quick {
         true
     }
 
-    fn proc(&self, queue: &mut Vec<(usize, u8)>, possible: &mut Vec<Vec<u8>>) -> Option<Vec<u8>> {
+    fn proc(&self, queue: &mut Vec<(usize, u8)>, possible: &mut Vec<Vec<u8>>) -> Option<Sudoku> {
         if !self.eliminate(queue, possible) {
             return None;
         }
@@ -73,7 +73,7 @@ impl Solver for Quick {
         match self.proc(&mut filled, &mut possible) {
             None => false,
             Some(state) => {
-                state.iter().enumerate().for_each(|(i, &v)| puzzle[i] = v);
+                puzzle.clone_from(&state);
                 true
             }
         }
