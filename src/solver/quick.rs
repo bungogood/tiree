@@ -14,8 +14,8 @@ impl Quick {
         }
     }
 
-    fn eliminate(&self, worklist: &mut Vec<(usize, u8)>, possible:&mut Vec<Vec<u8>>) -> bool {
-        while let Some((x, p)) = worklist.pop() {
+    fn eliminate(&self, queue: &mut Vec<(usize, u8)>, possible: &mut Vec<Vec<u8>>) -> bool {
+        while let Some((x, p)) = queue.pop() {
             for &n in self.neighbours[x].iter() {
                 if possible[n].len() == 1 {
                     continue;
@@ -23,7 +23,7 @@ impl Quick {
                 possible[n].retain(|&v| v != p);
                 match possible[n][..] {
                     [] => return false,
-                    [v] => worklist.push((n, v)),
+                    [v] => queue.push((n, v)),
                     _ => {}
                 }
             }
@@ -31,8 +31,8 @@ impl Quick {
         true
     }
 
-    fn proc(&self, worklist: &mut Vec<(usize, u8)>, possible:&mut Vec<Vec<u8>>) -> Option<Vec<u8>> {
-        if !self.eliminate(worklist, possible) {
+    fn proc(&self, queue: &mut Vec<(usize, u8)>, possible: &mut Vec<Vec<u8>>) -> Option<Vec<u8>> {
+        if !self.eliminate(queue, possible) {
             return None;
         }
 
