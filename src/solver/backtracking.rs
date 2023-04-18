@@ -1,4 +1,4 @@
-use crate::solver::{Neighbours, Solver};
+use crate::solver::{neighbours, Solver};
 use crate::sudoku::Sudoku;
 
 const SIZE: usize = 3;
@@ -6,13 +6,13 @@ const SIZE: usize = 3;
 // https://en.wikipedia.org/wiki/Backtracking
 
 pub struct Backtracking {
-    neighbours: Neighbours,
+    neighbours: Vec<Vec<usize>>,
 }
 
 impl Backtracking {
     pub fn new() -> Self {
         Backtracking {
-            neighbours: Neighbours::new(),
+            neighbours: neighbours(),
         }
     }
 

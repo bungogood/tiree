@@ -1,23 +1,22 @@
 use std::vec;
 
-use crate::solver::{Neighbours, Solver};
+use crate::solver::{neighbours, Solver};
 use crate::sudoku::Sudoku;
 
 pub struct Quick {
-    connections: Vec<Vec<usize>>,
+    neighbours: Vec<Vec<usize>>,
 }
 
 impl Quick {
     pub fn new() -> Self {
-        let n = Neighbours::new();
         Quick {
-            connections: n.iter().map(|&e| e.to_vec()).collect(),
+            neighbours: neighbours(),
         }
     }
 
     fn eliminate(&self, worklist: &mut Vec<(usize, u8)>, possible:&mut Vec<Vec<u8>>) -> bool {
         while let Some((x, p)) = worklist.pop() {
-            for &n in self.connections[x].iter() {
+            for &n in self.neighbours[x].iter() {
                 if possible[n].len() == 1 {
                     continue;
                 }
