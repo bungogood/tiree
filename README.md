@@ -1,7 +1,7 @@
 # Sudoku
-![Rust](https://github.com/bungogood/rust-sudoku/actions/workflows/rust.yml/badge.svg)
+![Rust](https://github.com/bungogood/sudoku/actions/workflows/rust.yml/badge.svg)
 
-"""
+```
 Puzzle
 ┌───────┬───────┬───────┐
 │ . . 4 │ 3 . . │ 2 . 9 │ 
@@ -33,7 +33,7 @@ Solved
 Time Taken: 48.33µs
 File: sudokus/1000000.txt Contains: 1000000 sudokus 
 Time Taken: 19.05s, Speed: 52505.91/s, Avg: 19.05µs
-"""
+```
 
 ## References
 Puzzles from:
