@@ -4,7 +4,7 @@ use crate::solver::{Neighbours, Solver};
 use crate::sudoku::Sudoku;
 
 struct State {
-    worklist: Vec<usize>,
+    worklist: Vec<(usize, u8)>,
     // connections: Vec<Vec<usize>>,
     possible: Vec<Vec<u8>>,
     placed: usize,
@@ -22,18 +22,17 @@ impl Quick {
     }
 
     fn eliminate(&self, state: &mut State) -> bool {
-        while let Some(x) = state.worklist.pop() {
+        while let Some((x, p)) = state.worklist.pop() {
             for &n in self.neighbours[x].iter() {
                 if state.possible[n].len() == 1 {
                     continue;
                 }
-                let value = state.possible[x][0];
-                state.possible[n].retain(|&v| v != value);
-                match state.possible[n].len() {
-                    0 => return false,
-                    1 => {
+                state.possible[n].retain(|&v| v != p);
+                match state.possible[n][..] {
+                    [] => return false,
+                    [v] => {
                         state.placed += 1;
-                        state.worklist.push(n)
+                        state.worklist.push((n, v))
                     }
                     _ => {}
                 }
@@ -57,7 +56,7 @@ impl Quick {
             Some((shortest, pos)) => {
                 for &v in pos {
                     let mut dup = State {
-                        worklist: vec![shortest], // all filled squared
+                        worklist: vec![(shortest, v)], // all filled squared
                         // connections: state.connections.clone(),
                         possible: state.possible.clone(),
                         placed: state.placed,
@@ -75,11 +74,11 @@ impl Quick {
 
 impl Solver for Quick {
     fn solve(&self, puzzle: &mut Sudoku) -> bool {
-        let filled: Vec<usize> = puzzle
+        let filled: Vec<(usize, u8)> = puzzle
             .iter()
             .enumerate()
             .filter(|(_, &v)| v != 0)
-            .map(|(i, _)| i)
+            .map(|(i, v)| (i, *v))
             .collect();
         let placed = filled.len();
         let possible: Vec<Vec<u8>> = puzzle
