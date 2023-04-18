@@ -1,6 +1,6 @@
-mod quick;
+mod backtracking;
 
-pub use quick::Quick;
+pub use backtracking::Backtracking;
 
 use crate::sudoku::Sudoku;
 

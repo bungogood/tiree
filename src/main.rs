@@ -1,10 +1,37 @@
-use std::str::FromStr;
+use std::{
+    fs::File,
+    io::{BufRead, BufReader},
+    str::FromStr,
+};
 
 mod solver;
 mod sudoku;
 
 use solver::{Backtracking, Solver};
 use sudoku::Sudoku;
+
+fn run_file(filepath: &str, solver: &dyn Solver) -> Result<(), Box<dyn std::error::Error>> {
+    let file = File::open(filepath)?;
+    let reader = BufReader::new(file);
+
+    let mut lines_iter = reader.lines();
+    lines_iter.next(); // Skip the first line
+
+    let start = std::time::Instant::now();
+
+    for line in lines_iter {
+        let mut puzzle = Sudoku::from_str(&line?).expect("Invalid Sudoku");
+        match solver.solve(&mut puzzle) {
+            Some(_sudoku) => {}
+            None => println!("Failed"),
+        }
+    }
+
+    let time_taken = start.elapsed();
+    println!("Time Taken: {:.2?}", time_taken);
+
+    Ok(())
+}
 
 fn run(puzzle: Sudoku, solver: &dyn Solver) {
     let mut s = puzzle.clone();
@@ -13,14 +40,15 @@ fn run(puzzle: Sudoku, solver: &dyn Solver) {
     let time_taken = start.elapsed();
 
     println!("{puzzle}");
-    if solved {
-        println!("Solved");
-        println!("{s}");
-    } else {
-        println!("Failed")
+    match solved {
+        Some(sln) => {
+            println!("Solved");
+            println!("{sln}");
+        }
+        None => println!("Failed"),
     }
 
-    println!("Time Taken: {:.2?}!", time_taken);
+    println!("Time Taken: {:.2?}", time_taken);
 }
 
 fn main() {
