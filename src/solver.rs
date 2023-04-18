@@ -1,9 +1,11 @@
 mod backtracking;
+mod quick;
 
 pub use backtracking::Backtracking;
+pub use quick::Quick;
 
 use crate::sudoku::Sudoku;
-use std::ops::Index;
+use std::ops::Deref;
 
 const SIZE: usize = 3;
 
@@ -50,10 +52,10 @@ impl Neighbours {
     }
 }
 
-impl Index<usize> for Neighbours {
-    type Output = [usize; 20];
+impl Deref for Neighbours {
+    type Target = [[usize; 20]; 81];
 
-    fn index(&self, index: usize) -> &Self::Output {
-        &self.connections[index]
+    fn deref(&self) -> &Self::Target {
+        &self.connections
     }
 }
