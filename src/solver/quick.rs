@@ -6,7 +6,7 @@ use crate::sudoku::Sudoku;
 struct State {
     worklist: Vec<(usize, u8)>,
     // connections: Vec<Vec<usize>>,
-    possible: Vec<Vec<u8>>
+    possible: Vec<Vec<u8>>,
 }
 
 pub struct Quick {
@@ -45,25 +45,26 @@ impl Quick {
         }
 
         match state
-        .possible
-        .iter()
-        .enumerate()
-        .filter(|(_, v)| v.len() > 1)
-        .min_by_key(|(_, v)| v.len()) {
+            .possible
+            .iter()
+            .enumerate()
+            .filter(|(_, v)| v.len() > 1)
+            .min_by_key(|(_, v)| v.len())
+        {
             None => return Some(state.possible.iter().map(|v| v[0]).collect()),
             Some((shortest, pos)) => {
                 for &v in pos {
                     let mut dup = State {
                         worklist: vec![(shortest, v)], // all filled squared
                         // connections: state.connections.clone(),
-                        possible: state.possible.clone()
+                        possible: state.possible.clone(),
                     };
                     dup.possible[shortest] = vec![v];
                     if let Some(pos) = self.proc(&mut dup) {
                         return Some(pos);
                     }
                 }
-                return None
+                return None;
             }
         }
     }
@@ -79,16 +80,12 @@ impl Solver for Quick {
             .collect();
         let possible: Vec<Vec<u8>> = puzzle
             .iter()
-            .map(|&v| if v == 0 {
-                (1u8..=9).collect()
-            } else {
-                vec![v]
-            })
+            .map(|&v| if v == 0 { (1u8..=9).collect() } else { vec![v] })
             .collect();
         let mut state = State {
             worklist: filled,
             // connections: self.connections.clone(),
-            possible: possible
+            possible: possible,
         };
         match self.proc(&mut state) {
             None => false,

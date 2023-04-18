@@ -1,4 +1,8 @@
-use std::{fmt::Display, str::FromStr, ops::{Deref, DerefMut}};
+use std::{
+    fmt::Display,
+    ops::{Deref, DerefMut},
+    str::FromStr,
+};
 
 const SIZE: usize = 3;
 
