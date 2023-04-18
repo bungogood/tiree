@@ -58,11 +58,17 @@ fn run(puzzle: Sudoku, solver: &dyn Solver) {
 
 fn main() {
     let problem =
-        "....754..........8.8.19....3....1.6........34....6817.2.4...6.39......2.53.2.....";
+        "..43..2.9..5..9..1.7..6..43..6..2.8719...74...5..83...6.....1.5..35.869..4291.3..";
     let puzzle = Sudoku::from_str(problem).expect("Invalid Sudoku");
     let bt = Backtracking::new();
+
     run(puzzle, &bt);
-    // run_file("sudokus/all-17-clue.txt", &bt);
-    run_file("sudokus/hard.txt", &bt).expect("Unable to read file");
-    // run_file("sudokus/1000000.txt", &bt);
+
+    // let filepath = "sudokus/hard.txt";
+    // let filepath = "sudokus/all-17-clue.txt";
+    let filepath = "sudokus/1000000.txt";
+
+    if let Err(_) = run_file(filepath, &bt) {
+        println!("Unable to read: {filepath}")
+    }
 }
