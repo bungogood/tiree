@@ -51,8 +51,10 @@ impl Iterator for Sudoku {
 
 // will need to check for length
 impl FromIterator<u8> for Sudoku {
-    fn from_iter<I: IntoIterator<Item=u8>>(iter: I) -> Self {
-        return Self { state: iter.into_iter().collect() };
+    fn from_iter<I: IntoIterator<Item = u8>>(iter: I) -> Self {
+        return Self {
+            state: iter.into_iter().collect(),
+        };
     }
 }
 

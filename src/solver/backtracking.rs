@@ -36,7 +36,7 @@ impl Backtracking {
         if !self.eliminate(queue, possible) {
             return None;
         }
-        
+
         match possible
             .iter()
             .enumerate()
