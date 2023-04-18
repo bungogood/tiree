@@ -1,7 +1,5 @@
-mod backtracking;
 mod quick;
 
-pub use backtracking::Backtracking;
 pub use quick::Quick;
 
 use crate::sudoku::Sudoku;
@@ -9,7 +7,7 @@ use crate::sudoku::Sudoku;
 const SIZE: usize = 3;
 
 pub trait Solver {
-    fn solve(&self, sudoku: &mut Sudoku) -> bool;
+    fn solve(&self, sudoku: &Sudoku) -> Option<Sudoku>;
 }
 
 pub fn neighbours() -> Vec<Vec<usize>> {

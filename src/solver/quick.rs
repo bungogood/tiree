@@ -59,7 +59,7 @@ impl Quick {
 }
 
 impl Solver for Quick {
-    fn solve(&self, puzzle: &mut Sudoku) -> bool {
+    fn solve(&self, puzzle: &Sudoku) -> Option<Sudoku> {
         let mut filled: Vec<(usize, u8)> = puzzle
             .iter()
             .enumerate()
@@ -70,12 +70,6 @@ impl Solver for Quick {
             .iter()
             .map(|&v| if v == 0 { (1u8..=9).collect() } else { vec![v] })
             .collect();
-        match self.proc(&mut filled, &mut possible) {
-            None => false,
-            Some(state) => {
-                puzzle.clone_from(&state);
-                true
-            }
-        }
+        return self.proc(&mut filled, &mut possible);
     }
 }
