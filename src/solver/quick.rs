@@ -15,16 +15,17 @@ impl Quick {
     }
 
     fn eliminate(&self, queue: &mut Vec<(usize, u8)>, possible: &mut Vec<Vec<u8>>) -> bool {
-        while let Some((x, p)) = queue.pop() {
-            for &n in self.neighbours[x].iter() {
-                if possible[n].len() == 1 {
-                    continue;
-                }
-                possible[n].retain(|&v| v != p);
+        while let Some((i, v)) = queue.pop() {
+            for &n in self.neighbours[i].iter() {
                 match possible[n][..] {
-                    [] => return false,
-                    [v] => queue.push((n, v)),
-                    _ => {}
+                    [p] if p == v => return false,
+                    [_] => continue,
+                    _ => {
+                        possible[n].retain(|&p| p != v);
+                        if let [p] = possible[n][..] {
+                            queue.push((n, p))
+                        }
+                    }
                 }
             }
         }
@@ -35,7 +36,7 @@ impl Quick {
         if !self.eliminate(queue, possible) {
             return None;
         }
-
+        
         match possible
             .iter()
             .enumerate()
@@ -47,8 +48,8 @@ impl Quick {
                 for &v in pos {
                     let mut replica = &mut possible.clone();
                     replica[shortest] = vec![v];
-                    if let Some(pos) = self.proc(&mut vec![(shortest, v)], &mut replica) {
-                        return Some(pos);
+                    if let Some(state) = self.proc(&mut vec![(shortest, v)], &mut replica) {
+                        return Some(state);
                     }
                 }
                 return None;
@@ -71,8 +72,8 @@ impl Solver for Quick {
             .collect();
         match self.proc(&mut filled, &mut possible) {
             None => false,
-            Some(pos) => {
-                pos.iter().enumerate().for_each(|(i, &v)| puzzle[i] = v);
+            Some(state) => {
+                state.iter().enumerate().for_each(|(i, &v)| puzzle[i] = v);
                 true
             }
         }
