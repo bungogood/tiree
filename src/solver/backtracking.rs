@@ -60,15 +60,17 @@ impl Backtracking {
 
 impl Solver for Backtracking {
     fn solve(&self, puzzle: &Sudoku) -> Option<Sudoku> {
-        let mut filled: Vec<(usize, u8)> = puzzle
+        let mut filled = vec![];
+        let mut possible = puzzle
             .iter()
             .enumerate()
-            .filter(|(_, &v)| v != 0)
-            .map(|(i, v)| (i, *v))
-            .collect();
-        let mut possible: Vec<Vec<u8>> = puzzle
-            .iter()
-            .map(|&v| if v == 0 { (1u8..=9).collect() } else { vec![v] })
+            .map(|(i, &v)| match v {
+                0 => (1u8..=9).collect(),
+                v => {
+                    filled.push((i, v));
+                    vec![v]
+                }
+            })
             .collect();
         return self.proc(&mut filled, &mut possible);
     }
