@@ -57,4 +57,7 @@ fn main() {
     let puzzle = Sudoku::from_str(problem).expect("Invalid Sudoku");
     let bt = Backtracking::new();
     run(puzzle, &bt);
+    // run_file("sudokus/all-17-clue.txt", &bt);
+    // run_file("sudokus/hard.txt", &bt);
+    // run_file("sudokus/1000000.txt", &bt);
 }

@@ -2,4 +2,7 @@
 .vscode/
 
 # Rust
-/target
+target/
+
+# Project
+sudokus/
