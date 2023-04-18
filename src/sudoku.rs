@@ -1,7 +1,6 @@
 use std::{
-    fmt::Display,
     ops::{Deref, DerefMut},
-    str::FromStr,
+    str::FromStr, fmt::Display,
 };
 
 const SIZE: usize = 3;
@@ -18,6 +17,42 @@ impl Sudoku {
 
     pub const fn rctoi(row: usize, col: usize) -> usize {
         row * SIZE.pow(2) + col
+    }
+
+    pub fn pretty(&self) -> String {
+        let top = divisor('┌', '┬', '┐');
+        let mid = divisor('├', '┼', '┤');
+        let bot = divisor('└', '┴', '┘');
+
+        let mut out = String::new();
+
+        out.push_str(&top);
+        out.push('\n');
+        for (i, &v) in self.state.iter().enumerate() {
+            let (r, c) = Sudoku::itorc(i);
+            if c == 0 {
+                out.push_str("│ ");
+            }
+
+            match v {
+                0 => out.push_str(". "),
+                _ => out.push_str(format!("{v} ").as_str()),
+            }
+
+            if c % SIZE == SIZE - 1 {
+                out.push_str("│ ");
+            }
+
+            if c == SIZE.pow(2) - 1 {
+                out.push('\n');
+                if r % SIZE == SIZE - 1 && r != SIZE.pow(2) - 1 {
+                    out.push_str(&mid);
+                    out.push('\n');
+                };
+            }
+        }
+        out.push_str(&bot);
+        out
     }
 }
 
@@ -38,14 +73,6 @@ impl Deref for Sudoku {
 impl DerefMut for Sudoku {
     fn deref_mut(&mut self) -> &mut Self::Target {
         &mut self.state
-    }
-}
-
-impl Iterator for Sudoku {
-    type Item = u8;
-
-    fn next(&mut self) -> Option<Self::Item> {
-        todo!()
     }
 }
 
@@ -85,38 +112,7 @@ fn divisor(left: char, mid: char, right: char) -> String {
 
 impl Display for Sudoku {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        let top = divisor('┌', '┬', '┐');
-        let mid = divisor('├', '┼', '┤');
-        let bot = divisor('└', '┴', '┘');
-
-        let mut out = String::new();
-
-        out.push_str(&top);
-        out.push('\n');
-        for (i, &v) in self.state.iter().enumerate() {
-            let (r, c) = Sudoku::itorc(i);
-            if c == 0 {
-                out.push_str("│ ");
-            }
-
-            match v {
-                0 => out.push_str(". "),
-                _ => out.push_str(format!("{v} ").as_str()),
-            }
-
-            if c % SIZE == SIZE - 1 {
-                out.push_str("│ ");
-            }
-
-            if c == SIZE.pow(2) - 1 {
-                out.push('\n');
-                if r % SIZE == SIZE - 1 && r != SIZE.pow(2) - 1 {
-                    out.push_str(&mid);
-                    out.push('\n');
-                };
-            }
-        }
-        out.push_str(&bot);
-        write!(f, "{}", out)
+        let s: String = self.state.iter().map(|v| v.to_string()).collect();
+        write!(f, "{}", s)
     }
 }
