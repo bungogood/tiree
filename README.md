@@ -1,5 +1,5 @@
 # Sudoku
-![Rust](https://github.com/bungogood/sudoku/actions/workflows/rust.yml/badge.svg)
+[![Build](../../actions/workflows/build.yaml/badge.svg)](../../actions/workflows/build.yaml)
 
 ```
 Puzzle
