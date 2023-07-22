@@ -2,9 +2,17 @@
 
 [![Build](../../actions/workflows/build.yaml/badge.svg)](../../actions/workflows/build.yaml)
 
-**Sudoku** (数独, sūdoku, digit-single) (/suːˈdoʊkuː/, /-ˈdɒk-/, /sə-/, originally called **Number Place**) is a logic-based, combinatorial number-placement puzzle. The objective is to fill a 9×9 grid with digits so that each column, each row, and each of the nine 3×3 subgrids that compose the grid (also called "boxes", "blocks", or "regions") contain all of the digits from 1 to 9. The puzzle setter provides a partially completed grid, which for a well-posed puzzle has a single solution.
+> **Sudoku** (数独, sūdoku, digit-single) (/suːˈdoʊkuː/, /-ˈdɒk-/, /sə-/, originally called **Number Place**)
+> is a logic-based, combinatorial number-placement puzzle. The objective is to fill a 9×9 grid with digits so
+> that each column, each row, and each of the nine 3×3 subgrids that compose the grid (also called "boxes",
+> "blocks", or "regions") contain all of the digits from 1 to 9. The puzzle setter provides a partially
+> completed grid, which for a well-posed puzzle has a single solution.
+>
+> Completed games are always an example of a Latin square which include an additional constraint on the contents
+> of individual regions. For example, the same single integer may not appear twice in the same row, column, or
+> any of the nine 3×3 subregions of the 9×9 playing board.
 
-Completed games are always an example of a Latin square which include an additional constraint on the contents of individual regions. For example, the same single integer may not appear twice in the same row, column, or any of the nine 3×3 subregions of the 9×9 playing board.
+Sudoku [Wikipedia](https://en.wikipedia.org/wiki/Sudoku)
 
 ## Usage
 
@@ -121,10 +129,10 @@ This aims to find the minimum clue sudoku.
 ## References
 
 - Sudoku [Wikipedia](https://en.wikipedia.org/wiki/Sudoku)
-- Fastest Sudoku solver [Challenge](https://codegolf.stackexchange.com/questions/190727/the-fastest-sudoku-solver)
-- Minimum-Clue Sudoku Unsolver [Challemnge](https://codegolf.stackexchange.com/questions/48509/build-a-minimum-clue-sudoku-unsolver)
-- Sudoku Compression [Challenge](https://codegolf.stackexchange.com/questions/41523/sudoku-compression)
-- Latin Square Compression [Challenge](https://codegolf.stackexchange.com/questions/85239/latin-square-compression)
+- [Challenge](https://codegolf.stackexchange.com/questions/190727/the-fastest-sudoku-solver) Fastest Sudoku solver
+- [Challenge](https://codegolf.stackexchange.com/questions/48509/build-a-minimum-clue-sudoku-unsolver) Minimum-Clue Sudoku Unsolver
+- [Challenge](https://codegolf.stackexchange.com/questions/41523/sudoku-compression) Sudoku Compression
+- [Challenge](https://codegolf.stackexchange.com/questions/85239/latin-square-compression) Latin Square Compression
 - [1 million](https://www.kaggle.com/datasets/bryanpark/sudoku) Sudoku games by [Kyubyong Park](https://www.kaggle.com/bryanpark)
 - [3 Million](https://www.kaggle.com/datasets/rohanrao/sudoku) Sudoku puzzles with ratings by [David Radcliffe](https://www.kaggle.com/radcliffe)
 - [9 Million](https://www.kaggle.com/datasets/rohanrao/sudoku) Sudoku Puzzles and Solutions by [Rohan Rao](https://www.kaggle.com/rohanrao)
