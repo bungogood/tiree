@@ -1,13 +1,13 @@
+use crate::sudoku::{Solver, Sudoku};
 use clap::Parser;
 use crypto_hash::Algorithm;
-use solver::{Backtracking, Solver};
+use solver::SolverBasic;
 use std::{
     fs::File,
     io::{BufRead, BufReader},
     path::PathBuf,
     str::FromStr,
 };
-use sudoku::Sudoku;
 
 mod solver;
 mod sudoku;
@@ -41,7 +41,7 @@ struct Args {
 
 fn run_file(
     filepath: &str,
-    solver: &dyn Solver,
+    solver: &mut dyn Solver,
     verbose: bool,
 ) -> Result<String, Box<dyn std::error::Error>> {
     let file = File::open(filepath)?;
@@ -92,10 +92,9 @@ fn run_file(
     Ok(out)
 }
 
-fn run(puzzle: Sudoku, solver: &dyn Solver) {
-    let mut s = puzzle.clone();
+fn run(puzzle: Sudoku, solver: &mut dyn Solver) {
     let start = std::time::Instant::now();
-    let solved = solver.solve(&mut s);
+    let solved = solver.solve(&puzzle);
     let time_taken = start.elapsed();
 
     println!("Puzzle:");
@@ -116,13 +115,13 @@ fn run(puzzle: Sudoku, solver: &dyn Solver) {
 fn main() {
     let args = Args::parse();
 
-    let bt = Backtracking::new();
+    let mut bt = SolverBasic::new();
 
     if let Some(problem) = args.sudoku.as_deref() {
         let puzzle = Sudoku::from_str(problem).expect("Invalid Sudoku");
-        run(puzzle, &bt);
+        run(puzzle, &mut bt);
     } else if let Some(infile) = args.infile.as_deref() {
-        if let Ok(out) = run_file(infile.to_str().unwrap(), &bt, args.verbose) {
+        if let Ok(out) = run_file(infile.to_str().unwrap(), &mut bt, args.verbose) {
             if let Some(outfile) = args.outfile.as_deref() {
                 std::fs::write(outfile, out).expect("Unable to write file");
             }
