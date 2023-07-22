@@ -9,15 +9,19 @@ Completed games are always an example of a Latin square which include an additio
 ## Usage
 
 ```
-Usage of Tiree:
-tiree [-s|-u|-a|-c] [-f infile] [-o outfile] sudoku
+Usage: tiree [OPTIONS] [SUDOKU]
 
-  -s --solve         Returns solution to soduku
-  -u --unsolve       Returns minium clue for soduku
-  -a --all-solutions Returns all solutions to soduku
-  -c --compress      Compresses sudokus
-  -v --verbose       Gives a more detailed output
-  -h --help          Gives all possible options
+Arguments:
+  [SUDOKU]  Optional name to operate on
+
+Options:
+  -f <INFILE>       Input file
+  -o <OUTFILE>      Output file
+  -s, --solve       Returns solution to soduku
+  -u, --unsolve     Returns minium clue for soduku
+  -v, --verbose     Returns solution to soduku
+  -h, --help        Print help
+  -V, --version     Print version
 ```
 
 Unsolved sudokus are of the from:
@@ -92,7 +96,7 @@ Solution:
 │ 5 4 2 │ 9 1 6 │ 3 7 8 │
 └───────┴───────┴───────┘
 864371259325849761971265843436192587198657432257483916689734125713528694542916378
-Time Taken: 14.77s, Speed: 67690.29/s, Avg: 14.77µs
+Time Taken: 17.51s, Speed: 57100.18/s, Avg: 17.51µs
 SHA-256 Hash: 4cb8f2b293a420e4397fc2bb1c541297e0a4fc43335f75e13ccc9833d0558cf3
 MD5 Hash:     bc0531d0c49c0e87c56b1a8c0ae81c46
 ```
