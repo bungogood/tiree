@@ -121,4 +121,5 @@ This aims to find the minimum clue sudoku.
 - Sudoku Compression [Challenge](https://codegolf.stackexchange.com/questions/41523/sudoku-compression)
 - Latin Square Compression [Challenge](https://codegolf.stackexchange.com/questions/85239/latin-square-compression)
 - [1 million](https://www.kaggle.com/datasets/bryanpark/sudoku) Sudoku games by [Kyubyong Park](https://www.kaggle.com/bryanpark)
+- [3 Million](https://www.kaggle.com/datasets/rohanrao/sudoku) Sudoku puzzles with ratings by [David Radcliffe](https://www.kaggle.com/radcliffe)
 - [9 Million](https://www.kaggle.com/datasets/rohanrao/sudoku) Sudoku Puzzles and Solutions by [Rohan Rao](https://www.kaggle.com/rohanrao)
