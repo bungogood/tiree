@@ -3,5 +3,5 @@
 version = 3
 
 [[package]]
-name = "sudoku"
+name = "tiree"
 version = "0.1.0"

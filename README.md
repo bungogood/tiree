@@ -92,7 +92,7 @@ Solution:
 │ 5 4 2 │ 9 1 6 │ 3 7 8 │
 └───────┴───────┴───────┘
 864371259325849761971265843436192587198657432257483916689734125713528694542916378
-Time Taken: 19.05s, Speed: 52505.91/s, Avg: 19.05µs
+Time Taken: 14.77s, Speed: 67690.29/s, Avg: 14.77µs
 Hash: 4cb8f2b293a420e4397fc2bb1c541297e0a4fc43335f75e13ccc9833d0558cf3
 ```
 
@@ -106,8 +106,8 @@ To check the solutions use `sha256sum <outfile>` and check the hash against the 
 | `hard_sudokus.txt`        | `b3df4de0e6f9d94b923ff2474db4da792c37e17ed4ad8dca2537fb4d65d35c83` |
 | `ppcg_sudoku_testing.txt` | `Not Yet Found`                                                    |
 | `1000000.txt`             | `4cb8f2b293a420e4397fc2bb1c541297e0a4fc43335f75e13ccc9833d0558cf3` |
-| `3000000.txt`             | `Not Yet Found`                                                    |
-| `9000000.txt`             | `Not Yet Found`                                                    |
+| `3000000.txt`             | `0e17c05d1856d96d7b103b3f9320a6f41cf1908d6465ae6287f257f2fb2d63e4` |
+| `9000000.txt`             | `817be7617a8dc46c44976d6732a8e5161a620c326acc6679b60b0b2889580ea6` |
 
 ## Unsolver
 

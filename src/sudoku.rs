@@ -1,6 +1,7 @@
 use std::{
+    fmt::Display,
     ops::{Deref, DerefMut},
-    str::FromStr, fmt::Display,
+    str::FromStr,
 };
 
 const SIZE: usize = 3;
@@ -17,6 +18,11 @@ impl Sudoku {
 
     pub const fn rctoi(row: usize, col: usize) -> usize {
         row * SIZE.pow(2) + col
+    }
+
+    pub fn human(&self) -> String {
+        let s: String = self.state.iter().map(|v| v.to_string()).collect();
+        s.replace("0", ".")
     }
 
     pub fn pretty(&self) -> String {

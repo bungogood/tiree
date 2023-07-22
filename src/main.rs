@@ -43,12 +43,12 @@ fn run(puzzle: Sudoku, solver: &dyn Solver) {
 
     println!("Puzzle");
     println!("{}", puzzle.pretty());
-    // println!("{puzzle}");
+    println!("{}", puzzle.human());
     match solved {
         Some(sln) => {
             println!("Solved");
             println!("{}", sln.pretty());
-            // println!("{sln}")
+            println!("{}", sln.human());
         }
         None => println!("Failed"),
     }
@@ -64,9 +64,9 @@ fn main() {
 
     run(puzzle, &bt);
 
-    // let filepath = "sudokus/hard.txt";
-    // let filepath = "sudokus/all-17-clue.txt";
-    let filepath = "sudokus/1000000.txt";
+    let filepath = "sudokus/hard_sudokus.txt";
+    // let filepath = "sudokus/all_17_clue_sudokus.txt";
+    // let filepath = "sudokus/1000000.txt";
 
     if let Err(_) = run_file(filepath, &bt) {
         println!("Unable to read: {filepath}")
