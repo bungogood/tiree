@@ -94,6 +94,7 @@ Solution:
 864371259325849761971265843436192587198657432257483916689734125713528694542916378
 Time Taken: 14.77s, Speed: 67690.29/s, Avg: 14.77µs
 SHA-256 Hash: 4cb8f2b293a420e4397fc2bb1c541297e0a4fc43335f75e13ccc9833d0558cf3
+MD5 Hash:     bc0531d0c49c0e87c56b1a8c0ae81c46
 ```
 
 ## Solver
@@ -104,7 +105,7 @@ To check the solutions use `sha256sum <outfile>` and check the hash against the 
 | ------------------------- | ------------------------------------------------------------------ |
 | `all_17_clue_sudokus.txt` | `0bc8dda364db7b99f389b42383e37b411d9fa022204d124cb3c8959eba252f05` |
 | `hard_sudokus.txt`        | `b3df4de0e6f9d94b923ff2474db4da792c37e17ed4ad8dca2537fb4d65d35c83` |
-| `ppcg_sudoku_testing.txt` | `Not Yet Found`                                                    |
+| `ppcg_sudoku_testing.txt` | `d5872bb0a37046207a0bb2c675e274dc2ae386b301c2955ae96b4e0f6237338a` |
 | `1000000.txt`             | `4cb8f2b293a420e4397fc2bb1c541297e0a4fc43335f75e13ccc9833d0558cf3` |
 | `3000000.txt`             | `0e17c05d1856d96d7b103b3f9320a6f41cf1908d6465ae6287f257f2fb2d63e4` |
 | `9000000.txt`             | `817be7617a8dc46c44976d6732a8e5161a620c326acc6679b60b0b2889580ea6` |

@@ -36,8 +36,11 @@ fn run_file(filepath: &str, solver: &dyn Solver) -> Result<(), Box<dyn std::erro
     let avg_time = time_taken / num_sudokus;
     println!("Time Taken: {time_taken:.2?}, Speed: {sudokus_rate:.2}/s, Avg: {avg_time:.2?}");
 
-    let sha256sum = calculate_sha256(&out);
+    let out_bytes = out.as_bytes();
+    let sha256sum = crypto_hash::hex_digest(Algorithm::SHA256, out_bytes);
+    let md5sum = crypto_hash::hex_digest(Algorithm::MD5, out_bytes);
     println!("SHA-256 Hash: {}", sha256sum);
+    println!("MD5 Hash:     {}", md5sum);
     Ok(())
 }
 
@@ -62,14 +65,6 @@ fn run(puzzle: Sudoku, solver: &dyn Solver) {
     println!("Time Taken: {:.2?}", time_taken);
 }
 
-fn calculate_sha256(input_string: &str) -> String {
-    // Convert the input string to bytes
-    let input_bytes = input_string.as_bytes();
-
-    // Calculate the SHA-256 hash
-    crypto_hash::hex_digest(Algorithm::SHA256, input_bytes)
-}
-
 fn main() {
     let problem =
         "..43..2.9..5..9..1.7..6..43..6..2.8719...74...5..83...6.....1.5..35.869..4291.3..";
@@ -79,6 +74,7 @@ fn main() {
     run(puzzle, &bt);
 
     // let filepath = "sudokus/hard_sudokus.txt";
+    // let filepath = "sudokus/ppcg_sudoku_testing.txt";
     // let filepath = "sudokus/all_17_clue_sudokus.txt";
     let filepath = "sudokus/1000000.txt";
 
