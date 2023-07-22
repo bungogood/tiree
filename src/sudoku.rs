@@ -37,6 +37,41 @@ impl Sudoku {
         for (i, &v) in self.state.iter().enumerate() {
             let (r, c) = Sudoku::itorc(i);
             if c == 0 {
+                out.push_str("│");
+            }
+
+            match v {
+                0 => out.push_str(" ."),
+                _ => out.push_str(format!(" {v}").as_str()),
+            }
+
+            if c % SIZE == SIZE - 1 {
+                out.push_str(" │");
+            }
+
+            if c == SIZE.pow(2) - 1 {
+                out.push('\n');
+                if r % SIZE == SIZE - 1 && r != SIZE.pow(2) - 1 {
+                    out.push_str(&mid);
+                    out.push('\n');
+                };
+            }
+        }
+        out.push_str(&bot);
+        out
+    }
+    pub fn _pretty(&self) -> String {
+        let top = divisor('┌', '┬', '┐');
+        let mid = divisor('├', '┼', '┤');
+        let bot = divisor('└', '┴', '┘');
+
+        let mut out = String::new();
+
+        out.push_str(&top);
+        out.push('\n');
+        for (i, &v) in self.state.iter().enumerate() {
+            let (r, c) = Sudoku::itorc(i);
+            if c == 0 {
                 out.push_str("│ ");
             }
 
