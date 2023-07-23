@@ -1,7 +1,7 @@
 use crate::sudoku::{Solver, Sudoku};
 use clap::Parser;
 use crypto_hash::Algorithm;
-use indicatif::ProgressBar;
+use indicatif::{ProgressBar, ProgressStyle};
 use solver::SolverBasic;
 use std::{
     fs::File,
@@ -74,6 +74,9 @@ fn run_file(
     let mut guesses = 0;
 
     let pb = ProgressBar::new(num_sudokus as u64);
+    pb.set_style(
+        ProgressStyle::default_bar().template("{wide_bar} {human_pos}/{human_len} ({eta})")?,
+    );
     let start = std::time::Instant::now();
     for line in lines_iter {
         let mut puzzle = Sudoku::from_str(&line?).expect("Invalid Sudoku");
