@@ -12,7 +12,10 @@
 > of individual regions. For example, the same single integer may not appear twice in the same row, column, or
 > any of the nine 3×3 subregions of the 9×9 playing board.
 
-Sudoku [Wikipedia](https://en.wikipedia.org/wiki/Sudoku)
+Sudoku, as described by [Wikipedia][wikipedia], has always presented an interestingchallenge. This project was
+inspired by the Fastest Sudoku Solver [Challenge][challenge] on Stack Exchange. As Sudoku provides an intriguing
+example of constraint satisfaction, this repository aims to implement a wide range of techniques to solve and
+unsolve Sudoku puzzles.
 
 ## Usage
 
@@ -137,3 +140,6 @@ This aims to find the minimum clue sudoku.
 - [1 million](https://www.kaggle.com/datasets/bryanpark/sudoku) Sudoku games by [Kyubyong Park](https://www.kaggle.com/bryanpark)
 - [3 Million](https://www.kaggle.com/datasets/rohanrao/sudoku) Sudoku puzzles with ratings by [David Radcliffe](https://www.kaggle.com/radcliffe)
 - [9 Million](https://www.kaggle.com/datasets/rohanrao/sudoku) Sudoku Puzzles and Solutions by [Rohan Rao](https://www.kaggle.com/rohanrao)
+
+[wikipedia]: https://en.wikipedia.org/wiki/Sudoku
+[challenge]: https://codegolf.stackexchange.com/questions/190727/the-fastest-sudoku-solver
