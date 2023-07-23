@@ -104,7 +104,7 @@ Solution:
 │ 5 4 2 │ 9 1 6 │ 3 7 8 │
 └───────┴───────┴───────┘
 864371259325849761971265843436192587198657432257483916689734125713528694542916378
-Time Taken: 17.51s, Speed: 57100.18/s, Avg: 17.51µs
+Time Taken: 6.40s, Speed: 156213.87/s, Avg: 6.40µs, Avg Guesses: 0.00
 SHA-256 Hash: 4cb8f2b293a420e4397fc2bb1c541297e0a4fc43335f75e13ccc9833d0558cf3
 MD5 Hash:     bc0531d0c49c0e87c56b1a8c0ae81c46
 ```
@@ -129,6 +129,7 @@ This aims to find the minimum clue sudoku.
 ## References
 
 - Sudoku [Wikipedia](https://en.wikipedia.org/wiki/Sudoku)
+- [tdoku](https://t-dillon.github.io/tdoku)
 - [Challenge](https://codegolf.stackexchange.com/questions/190727/the-fastest-sudoku-solver) Fastest Sudoku solver
 - [Challenge](https://codegolf.stackexchange.com/questions/48509/build-a-minimum-clue-sudoku-unsolver) Minimum-Clue Sudoku Unsolver
 - [Challenge](https://codegolf.stackexchange.com/questions/41523/sudoku-compression) Sudoku Compression

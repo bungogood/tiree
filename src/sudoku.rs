@@ -6,10 +6,12 @@ use std::{
 
 pub trait Solver {
     fn solve(&mut self, sudoku: &Sudoku) -> Option<Sudoku>;
+    fn guesses(&self) -> usize;
 }
 
 pub const SIZE: usize = 3;
 
+#[derive(Clone, Copy, Debug, PartialEq, Eq)]
 pub struct Sudoku([char; 81]);
 
 impl Default for Sudoku {
@@ -56,10 +58,7 @@ impl FromStr for Sudoku {
 impl Display for Sudoku {
     fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
         for &cell in self.iter() {
-            match cell {
-                '.' => write!(f, "0")?,
-                _ => write!(f, "{}", cell)?,
-            }
+            write!(f, "{}", cell)?
         }
         Ok(())
     }
@@ -73,9 +72,9 @@ fn divisor(left: char, mid: char, right: char) -> String {
 }
 
 impl Sudoku {
-    pub fn human(&self) -> String {
+    pub fn out(&self) -> String {
         let s: String = self.iter().map(|v| v.to_string()).collect();
-        s.replace("0", ".")
+        s.replace(".", "0")
     }
 
     pub fn pretty(&self) -> String {

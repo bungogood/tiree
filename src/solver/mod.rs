@@ -1,3 +1,3 @@
-pub use self::bit::SolverBasic;
+pub use self::basic::SolverBasic;
 
-mod bit;
+mod basic;
