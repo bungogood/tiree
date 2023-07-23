@@ -1,6 +1,7 @@
 use crate::sudoku::{Solver, Sudoku};
 use clap::Parser;
 use crypto_hash::Algorithm;
+use indicatif::ProgressBar;
 use solver::SolverBasic;
 use std::{
     fs::File,
@@ -72,6 +73,7 @@ fn run_file(
     let mut out = format!("{}\n", num_sudokus);
     let mut guesses = 0;
 
+    let pb = ProgressBar::new(num_sudokus as u64);
     let start = std::time::Instant::now();
     for line in lines_iter {
         let mut puzzle = Sudoku::from_str(&line?).expect("Invalid Sudoku");
@@ -82,7 +84,10 @@ fn run_file(
             }
             None => println!("Failed"),
         }
+        pb.inc(1);
     }
+    pb.finish_and_clear();
+
     let time_taken = start.elapsed();
     let sudokus_rate = num_sudokus as f64 / time_taken.as_secs_f64();
     let avg_time = time_taken / num_sudokus;

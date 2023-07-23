@@ -8,3 +8,4 @@ edition = "2021"
 [dependencies]
 clap = { version = "4.3.19", features = ["derive"] }
 crypto-hash = "0.3.4"
+indicatif = "0.17.5"
