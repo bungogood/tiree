@@ -26,15 +26,15 @@ struct Args {
     #[arg(short = 'o')]
     outfile: Option<PathBuf>,
 
-    /// Returns solution to soduku
+    /// Returns solution to sudoku
     #[arg(short, long, conflicts_with = "unsolve", default_value = "true")]
     solve: bool,
 
-    /// Returns minium clue for soduku
+    /// Returns minimum clue for sudoku
     #[arg(short, long, conflicts_with = "solve")]
     unsolve: bool,
 
-    /// Returns solution to soduku
+    /// Returns solution to sudoku
     #[arg(short, long)]
     verbose: bool,
 }
@@ -50,7 +50,7 @@ fn run_file(
     let mut lines_iter = reader.lines().peekable();
     let num_sudokus: u32 = lines_iter.next().unwrap()?.trim().parse()?;
 
-    println!("File: {filepath} Contains: {num_sudokus} sudokus ");
+    println!("File: {} Contains: {} sudokus", filepath, num_sudokus);
 
     if verbose {
         if let Some(Ok(first)) = lines_iter.peek() {
@@ -77,7 +77,7 @@ fn run_file(
         let mut puzzle = Sudoku::from_str(&line?).expect("Invalid Sudoku");
         match solver.solve(&mut puzzle) {
             Some(solution) => {
-                out.push_str(format!("{},{}\n", puzzle.out(), solution).as_str());
+                out.push_str(&format!("{},{}\n", puzzle.out(), solution));
                 guesses += solver.guesses();
             }
             None => println!("Failed"),
@@ -87,10 +87,10 @@ fn run_file(
     let sudokus_rate = num_sudokus as f64 / time_taken.as_secs_f64();
     let avg_time = time_taken / num_sudokus;
     let guess_rate = guesses as f32 / num_sudokus as f32;
-    print!("Time Taken: {time_taken:.2?}, ");
-    print!("Speed: {sudokus_rate:.2}/s, ");
-    print!("Avg: {avg_time:.2?}, ");
-    println!("Avg Guesses: {guess_rate:.2}");
+    println!(
+        "Time Taken: {:.2?}, Speed: {:.2}/s, Avg: {:.2?}, Avg Guesses: {:.2}",
+        time_taken, sudokus_rate, avg_time, guess_rate
+    );
 
     let out_bytes = out.as_bytes();
     let sha256sum = crypto_hash::hex_digest(Algorithm::SHA256, out_bytes);
