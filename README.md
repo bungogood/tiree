@@ -44,9 +44,9 @@ Unsolved sudokus are of the from:
 
 Where:
 
-- Each puzzle is 81 characters
-- `0` or `.` is an unfilled cell
-- `1-9` is a filled cell
+-   Each puzzle is 81 characters
+-   `0` or `.` is an unfilled cell
+-   `1-9` is a filled cell
 
 **_NOTE:_** Both input and output files contain a single trailing newline.
 
@@ -129,17 +129,23 @@ To check the solutions use `sha256sum <outfile>` and check the hash against the 
 
 This aims to find the minimum clue sudoku.
 
+## TODO
+
+-   Add Rayon and paralelise the computation
+-   Complete unsolver
+-   Sudoku generation / ratings
+
 ## References
 
-- Sudoku [Wikipedia](https://en.wikipedia.org/wiki/Sudoku)
-- [tdoku](https://t-dillon.github.io/tdoku)
-- [Challenge](https://codegolf.stackexchange.com/questions/190727/the-fastest-sudoku-solver) Fastest Sudoku solver
-- [Challenge](https://codegolf.stackexchange.com/questions/48509/build-a-minimum-clue-sudoku-unsolver) Minimum-Clue Sudoku Unsolver
-- [Challenge](https://codegolf.stackexchange.com/questions/41523/sudoku-compression) Sudoku Compression
-- [Challenge](https://codegolf.stackexchange.com/questions/85239/latin-square-compression) Latin Square Compression
-- [1 million](https://www.kaggle.com/datasets/bryanpark/sudoku) Sudoku games by [Kyubyong Park](https://www.kaggle.com/bryanpark)
-- [3 Million](https://www.kaggle.com/datasets/rohanrao/sudoku) Sudoku puzzles with ratings by [David Radcliffe](https://www.kaggle.com/radcliffe)
-- [9 Million](https://www.kaggle.com/datasets/rohanrao/sudoku) Sudoku Puzzles and Solutions by [Rohan Rao](https://www.kaggle.com/rohanrao)
+-   Sudoku [Wikipedia](https://en.wikipedia.org/wiki/Sudoku)
+-   [tdoku](https://t-dillon.github.io/tdoku)
+-   [Challenge](https://codegolf.stackexchange.com/questions/190727/the-fastest-sudoku-solver) Fastest Sudoku solver
+-   [Challenge](https://codegolf.stackexchange.com/questions/48509/build-a-minimum-clue-sudoku-unsolver) Minimum-Clue Sudoku Unsolver
+-   [Challenge](https://codegolf.stackexchange.com/questions/41523/sudoku-compression) Sudoku Compression
+-   [Challenge](https://codegolf.stackexchange.com/questions/85239/latin-square-compression) Latin Square Compression
+-   [1 million](https://www.kaggle.com/datasets/bryanpark/sudoku) Sudoku games by [Kyubyong Park](https://www.kaggle.com/bryanpark)
+-   [3 Million](https://www.kaggle.com/datasets/rohanrao/sudoku) Sudoku puzzles with ratings by [David Radcliffe](https://www.kaggle.com/radcliffe)
+-   [9 Million](https://www.kaggle.com/datasets/rohanrao/sudoku) Sudoku Puzzles and Solutions by [Rohan Rao](https://www.kaggle.com/rohanrao)
 
 [wikipedia]: https://en.wikipedia.org/wiki/Sudoku
 [challenge]: https://codegolf.stackexchange.com/questions/190727/the-fastest-sudoku-solver
